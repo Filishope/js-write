@@ -1,0 +1,58 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-07-31 11:35:40
+ * @LastEditTime: 2020-08-01 11:53:18
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /vue/Users/filish.k/study/demo/draggle.html
+--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>节流防抖</title>
+</head>
+<body>
+    <input id="aaa" type="text">
+
+    <script>
+        function throttle(fn, delay) {
+            let flag = true,
+            timer = null
+            return (...args) =>{
+                let context = this
+                if(!flag) return
+
+                flag = false
+                clearTimeout(timer)
+                timer = setTimeout(function() {
+                    fn.apply(context,args)
+                    flag = true
+                },delay)
+            }
+        }
+        function debounce(func, delay) {
+            let timeout;
+            // console.log(timeout)
+            return (...args) =>{
+                // console.log(timeout)
+                clearTimeout(timeout);
+                let context = this;
+                timeout = setTimeout(() =>{
+                    console.log("----")
+                    func.apply(context, args);
+                },delay)
+            };
+        };
+
+        // 绑定监听
+        document.querySelector("input").addEventListener('input', debounce(e =>{
+                console.log("change",e)
+            }, 1000)
+        );
+
+
+    </script>
+</body>
+</html>

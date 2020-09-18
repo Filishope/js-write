@@ -1,0 +1,50 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-07-31 11:35:40
+ * @LastEditTime: 2020-07-31 11:45:13
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /vue/Users/filish.k/study/demo/draggle.html
+--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>draggle</title>
+</head>
+<body>
+    <div>aaaaaaaaa</div>
+    <div>bbbbb</div>
+    <div>cccc</div>
+    <div style="cursor:pointer;background-color: antiquewhite;" id="xxx">这是要拖拽的内容</div>
+    <script>
+        var dragging = false
+        var position = null
+
+        const xxx = document.getElementById('xxx')
+        xxx.style.position = 'absolute'
+        xxx.addEventListener('mousedown', function (e) {
+            dragging = true
+            position = [e.clientX, e.clientY]
+        })
+
+
+        document.addEventListener('mousemove', function (e) {
+            if (dragging === false) return null
+            const x = e.clientX
+            const y = e.clientY
+            const deltaX = x - position[0]
+            const deltaY = y - position[1]
+            const left = parseInt(xxx.style.left || xxx.getBoundingClientRect().left)
+            const top = parseInt(xxx.style.top || xxx.getBoundingClientRect().top)
+            xxx.style.left = left + deltaX + 'px'
+            xxx.style.top = top + deltaY + 'px'
+            position = [x, y]
+        })
+        document.addEventListener('mouseup', function (e) {
+            dragging = false
+        })
+    </script>
+</body>
+</html>

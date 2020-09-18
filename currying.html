@@ -1,0 +1,35 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-07-31 11:35:40
+ * @LastEditTime: 2020-08-01 10:47:39
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /vue/Users/filish.k/study/demo/draggle.html
+--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>currying</title>
+</head>
+<body>
+    <div id="aaa"></div>
+    <script>
+        let currying = (fn, ...args) =>
+        fn.length > args.length ?
+        (...arguments) => currying(fn, ...args, ...arguments) :
+        fn(...args)
+        let addSum = (a, b, c) => a+b+c
+        console.log(addSum.length)
+        let add = currying(addSum)
+        var a = add(1)(2)(3),
+        b = add(1,2)(3),
+        c =add(1,2,3)
+        document.getElementById('aaa').innerHTML = `${a},${b},${c}`
+        console.log(add(1)(2)(3))
+        console.log(add(1, 2)(3))
+        console.log(add(1,2,3))
+    </script>
+</body>
+</html>

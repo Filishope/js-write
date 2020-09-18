@@ -1,0 +1,56 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-07-31 11:35:40
+ * @LastEditTime: 2020-07-31 14:15:28
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /vue/Users/filish.k/study/demo/draggle.html
+--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件委托</title>
+</head>
+<body>
+    <ul id="xxx">下面的内容是子元素1
+        <li>li内容>>> 
+            <span class="li"> 这是span内容123</span>
+        </li>
+        下面的内容是子元素2
+        <li class="select">li内容>>> 
+            <span > 这是span内容123</span>
+        </li>
+        下面的内容是子元素3
+        <li>li内容>>> 
+            <span> 这是span内容123</span>
+        </li>
+    </ul>
+
+    <script>
+        const el = document.getElementById('xxx')
+        let flag = false;
+        function delegate(element, eventType, selector, fn) {
+            element.addEventListener(eventType, e => {
+                let el = e.target
+                while (!el.matches(selector)) {
+                    if (element === el) {
+                        el = null
+                        break
+                    }
+                    el = el.parentNode
+                }
+                el && fn.call(el, e, el)
+            }, true)
+            return element
+        }
+        delegate(el,'click','.select', e =>{
+            console.log('点击了select')
+            flag = !flag
+            const text = flag ? '啊啊啊啊啊' : '哦哦哦哦哦'
+            document.querySelectorAll('.li')[0].innerHTML = text
+        })
+    </script>
+</body>
+</html>

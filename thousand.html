@@ -1,0 +1,26 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-07-31 11:35:40
+ * @LastEditTime: 2020-08-01 10:48:12
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /vue/Users/filish.k/study/demo/draggle.html
+--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>currying</title>
+</head>
+<body>
+    <div id="aaa"></div>
+    <script>
+        function thousandth(str) {
+            return str.replace(/\d(?=(?:\d{3})+(?:\.\d+|$))/g, '$&,');
+        }
+        console.log(thousandth('21322131233'))
+        document.getElementById('aaa').innerHTML = `${thousandth('21322131233')}`
+    </script>
+</body>
+</html>
