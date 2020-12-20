@@ -9,10 +9,10 @@ Animal.prototype = {
 }
 const dog = new Animal('dog','eat');
 dog.eat();
-console.log(dog.__proto__ === Animal.prototype)
-console.log(dog.constructor === Animal)
-console.log(Animal.prototype.constructor === Animal)
-console.log('dog.__proto__', dog.__proto__)
-console.log('Animal.prototype', Animal.prototype)
-console.log('dog.constructor', dog.constructor)
-console.log('Animal.prototype.constructor', Animal.prototype.constructor)
+console.log(dog.__proto__ === Animal.prototype) //true
+console.log(dog.constructor === Animal) //false
+console.log(Animal.prototype.constructor === Animal) //false
+console.log('dog.__proto__', dog.__proto__) //eat: [Function: eat]
+console.log('Animal.prototype', Animal.prototype) //eat: [Function: eat]
+console.log('dog.constructor', dog.constructor) //function Object() { [native code] }
+console.log('Animal.prototype.constructor', Animal.prototype.constructor) //function Object() { [native code] }
