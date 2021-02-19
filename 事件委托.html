@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-31 11:35:40
- * @LastEditTime: 2020-07-31 14:15:28
+ * @LastEditTime: 2021-02-19 11:07:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue/Users/filish.k/study/demo/draggle.html
@@ -41,8 +41,8 @@
                     }
                     el = el.parentNode
                 }
-                el && fn.call(el, e, el)
-            }, true)
+                el && fn.call(el, e)
+            })
             return element
         }
         delegate(el,'click','.select', e =>{
