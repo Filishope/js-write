@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    Function.prototype.mybind = function (context) {
+
+        //调用时不是方法抛出错误
+        if (typeof this !== "function") {
+            throw new Error("Function.prototype.bind - what is trying to be bound is not callable");
+        }
+
+        var self = this;
+        //获取bind的参数
+        var args = Array.prototype.slice.call(arguments, 1);
+
+        var fBound = function () {
+            //返回的函数调用时的传参
+            var bindArgs = Array.prototype.slice.call(arguments);
+            //如果返回的函数通过new实例化,就舍弃bind的this绑定功能,把this指向实例化对象
+            return self.apply(this instanceof fBound ? this : context, args.concat(bindArgs));
+        }
+
+        //寄生式继承
+        fBound.prototype = Object.create(this.prototype);
+        return fBound;
+    }
+    var value = 2;
+
+    var foo = {
+        value: 1
+    };
+
+    function bar(name, age) {
+        this.habit = '跑步';
+        console.log(this.value);
+        console.log(name);
+        console.log(age);
+    }
+
+    bar.prototype.friend = '小白';
+
+    console.log('*****************************')
+    var bindFoo = bar.mybind(foo, '小红');
+    var obj = new bindFoo('18');
+    // undefined
+    // 小红
+    // 18
+    console.log(obj.habit);
+    console.log(obj.friend);
+    // 跑步
+    // 小白
+    console.log('*****************************')
+    var bindFoo2 = bar.mybind(foo, '小明', '22')
+    bindFoo2()
+    // 1
+    // 小明
+    // 22
+</script>
