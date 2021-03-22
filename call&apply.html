@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    Function.prototype.mycall = function (context) {
+        //call的第一个参数默认为空时取window
+        var ctx = context || window || global
+
+        //1、为ctx添加fn属性
+        ctx.fn = this
+        //获取剩余参数传参调用
+        var args = [];
+        for (var i = 1; i < arguments.length; i++) {
+            args.push("arguments[" + i + "]")
+        }
+        //2、手动调用
+        var result = eval('ctx.fn(' + args + ')');
+        //3、删除对象fn属性
+        delete ctx.fn
+
+        //函数return情况处理
+        return result
+    }
+    Function.prototype.myapply = function (context,args) {
+        var ctx = context || window || global
+        ctx.fn = this
+        var arglist = [];
+        if(!args){
+            return ctx.fn()
+        }
+        for (var i = 0; i < args.length; i++) {
+            arglist.push("args[" + i + "]")
+        }
+        var result = eval('ctx.fn(' + arglist + ')');
+        delete ctx.fn
+        return result
+    }
+
+    var aa = 'window aa';
+    var obj = {
+        aa: 'obj aa'
+    }
+
+    function test(name, age) {
+        console.log(this.aa)
+        console.log(name)
+        console.log(age)
+    }
+
+    test.mycall(obj, '小明', 18)
+    test.mycall(null)
+    console.log('***********************************')
+    test.myapply(obj, ['小明', 18])
+    test.myapply(null)
+
+</script>
