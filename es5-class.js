@@ -1,22 +1,21 @@
-//es5实现类
-function Person(name, age){
-    this.name = name;
-    this.age = age;
-    this.work = function(){
-        console.log(`${this.name}在工作`)
-    }
-}
-Person.prototype.sex = "男";
-Person.prototype.run = function(){
-    console.log(`${this.name}在跑步`)
-};
-const p = new Person('小明',18);
-p.work();
+//################## https://github.com/mqyqingfeng/Blog/issues/16
 
-//组合继承(原型链+构造函数)
-function Web(name, age){
-    Person.call(this,name,age); //对象冒充继承 继承父类的构造函数,可传参
+//1、原型链继承
+//问题: 引用类型的属性被所有实例共享,且子类实例化不能传参
+function Parent() {
+    this.name = 'kevin';
 }
-Web.prototype = Person.prototype;
-const p2 = new Web('张三',33);
-p2.run();
+
+Parent.prototype.getName = function () {
+    console.log(this.name);
+}
+
+function Child() {
+
+}
+
+Child.prototype = new Parent();
+
+var child1 = new Child();
+
+console.log(child1.getName()) // kevin
